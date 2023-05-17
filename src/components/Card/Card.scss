@@ -1,18 +1,85 @@
 .city__card {
-  background: red;
+  background: transparent;
+  position: relative;
+  width: calc((90vw / 5 ));
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 5px 5px 15px #ffffff;
+
 
   .city__name {
-    font-size: 22px;
+    font-size: 30px;
+    height: 25px;
+    font-weight: 400;
+    margin-bottom: 10px;
   }
 
   .city__temperature {
-    font-size: 40px;
+    font-size: 60px;
+    font-weight: 600;
+
   }
 
+  .city__infos__container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    .city__description__wrapper {
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        p {
+          font-size: 20px;
+          margin: 0;
+          font-weight: 600;
+        }
+        i {
+          font-size: 30px;
+        }
+      }
+
+    }
+
+    .sunrise__wrapper {
+      div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+
+        p {
+          font-size: 20px;
+          margin: 0;
+          font-weight: 600;
+        }
+        i {
+          font-size: 30px;
+        }
+
+        .i-sunset {
+          color: #ff9900;
+        }
+
+        .i-sunrise {
+          color: #f3d50b;
+
+        }
+      }
+    }
+  }
+
+
+
   .city__pin {
-      cursor: pointer;
-      background: none;
+    cursor: pointer;
+    background: none;
     border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 
     i {
       font-size: 30px;

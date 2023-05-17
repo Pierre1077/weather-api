@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'axios'
 import axios from "axios";
 import Card from "../../components/Card/Card";
+import './Home.css'
 
 const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState([]);
@@ -187,29 +188,39 @@ const WeatherApp = () => {
 
     return (
         <div>
+            <h1 className={'title'}>Weather API</h1>
             <div>
-                <input type={'text'} onChange={searchCity} />
+                <input type={'text'} onChange={searchCity} placeholder={'Search a specific city'} />
             </div>
-            <h2>Pin</h2>
-            {isPinned.map((pinned, index) => {
-                return (
-                    <div key={index}>
-                        <h2>{pinned.name}</h2>
-                        <p>Temperature: {((pinned.main.temp) -  273.15).toFixed(0) + ' C°'}</p>
-                        <p>Cloudy: {pinned.clouds.all + '%'}</p>
-                        <p>description: {pinned.weather[0].main} </p>
-                        <p>wind.speed: {((pinned.wind.speed) * 3.6).toFixed(0) + ' km/h'}</p>
-                        <p>sys.sunrise: {sunriseTimestamp(pinned.sys.sunrise)}</p>
-                        <p>sys.sunset: { sunsetTimestamp(pinned.sys.sunset)}</p>
-                        <button onClick={() => togglePin(pinned)}>
-                            Unpin
-                        </button>
-                    </div>
-                );
-            })}
-            <h2>Cities</h2>
-            {weatherData.length > 0 ? (
-                weatherData.map((data, index) => (
+            <h2 className={'subtitle'}>Pinned cities</h2>
+            <div className={'city__container'}>
+                {isPinned.length > 0 ?
+                    isPinned.map((pinned, index) => {
+                            return (
+
+                                <Card
+                                    key={index}
+                                    name={pinned.name}
+                                    temperature={((pinned.main.temp) -  273.15).toFixed(0) + ' °C'}
+                                    clouds={pinned.clouds.all}
+                                    description={pinned.weather[0].main}
+                                    wind={((pinned.wind.speed) * 3.6).toFixed(0) + ' km/h'}
+                                    sunrise={sunriseTimestamp(pinned.sys.sunrise)}
+                                    sunset={sunsetTimestamp(pinned.sys.sunset)}
+                                    togglePin={() => togglePin(pinned)}
+                                    pin={isPinned.find((i) => i.id === pinned.id) ? '#de1313' : '#a3a3a3'}
+                                />
+
+
+                            );
+                        })
+                    : <p className={'emptyIsPinned'}>No pinned cities yet </p>}
+
+            </div>
+            <h2 className={'subtitle'}>All Cities</h2>
+            <div className={'city__container'}>
+                {weatherData.length > 0 ? (
+                    weatherData.map((data, index) => (
 
                         <Card
                             key={index}
@@ -221,13 +232,14 @@ const WeatherApp = () => {
                             sunrise={sunriseTimestamp(data.sys.sunrise)}
                             sunset={sunsetTimestamp(data.sys.sunset)}
                             togglePin={() => togglePin(data)}
-                            pin={isPinned.find((i) => i.id === data.id) ? 'red' : 'black'}
+                            pin={isPinned.find((i) => i.id === data.id) ? '#de1313' : '#a3a3a3'}
                         />
 
-                ))
-            ) : (
-                <p>Loading weather data...</p>
-            )}
+                    ))
+                ) : (
+                    <p>Loading weather data...</p>
+                )}
+            </div>
         </div>
     );
 };

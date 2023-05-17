@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  /*background-image: url("https://img.freepik.com/photos-gratuite/nuage-blanc-ciel-bleu_74190-2381.jpg");*/
+  background: #0fb6e7;
+  background-size: cover;
 }
 
 .App-logo {

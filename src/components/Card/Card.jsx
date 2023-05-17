@@ -7,13 +7,15 @@ const Card = ({name, temperature, clouds, description, wind, sunrise, sunset, to
             <div>
                 {description === "Clouds" ?
                     <img
-                        src="https://us.123rf.com/450wm/ihorsw/ihorsw1607/ihorsw160700111/62664016-couleur-soleil-nuageux-ic%C3%B4ne-isol%C3%A9-sur-fond-pictogramme-moderne-plat-affaires-marketing-internet.jpg"
+                        src="https://www.meteobelgique.be/staticfiles/images/picto/v2/bc/day/mostcloudy.png"
                         alt=""
+                        width={100}
                     />
                     :
                     <img
-                        src="https://media.istockphoto.com/id/951711548/fr/vectoriel/ic%C3%B4ne-soleil-or-jaune-isol%C3%A9-sur-fond-pictogramme-plat-moderne-entreprise-marketing-concept.jpg?s=612x612&w=0&k=20&c=dzKZoYgZFe7GN1Ff_UCMLyotJIXkfDi_IA1S3sUikCs="
+                        src="https://images.emojiterra.com/google/android-nougat/512px/2600.png"
                         alt=""
+                        width={100}
                     />
                 }
             </div>
@@ -21,33 +23,31 @@ const Card = ({name, temperature, clouds, description, wind, sunrise, sunset, to
             <p className={'city__temperature'}>{temperature}</p>
             {/*<p>clouds : {clouds + '%'}</p>*/}
 
-            <div>
-                <img src="https://www.123-stickers.com/5404-thickbox/stickers-stickers-nuage.jpg" alt="" width={50}/>
-                {description}
-            </div>
-            <div>
-                <img
-                    src="https://img.freepik.com/icones-gratuites/vent_318-929764.jpg"
-                    alt=""
-                    width={50}
-                />
-                {wind}
-            </div>
-            <div>
-                <img
-                    src="https://img.freepik.com/icones-gratuites/lever-du-soleil_318-219627.jpg"
-                    alt=""
-                    width={50}
-                />
-                {sunrise}
-            </div>
-            <div>
-                <img
-                    src="https://img.freepik.com/icones-gratuites/coucher-soleil_318-219628.jpg"
-                    alt=""
-                    width={50}
-                />
-                {sunset}
+            <div className={'city__infos__container'}>
+                <div className={'city__description__wrapper'}>
+                    <div>
+                        {description === "Clouds" ?
+                            <i className="fa-solid fa-cloud"></i>
+                            :
+                            <i className="fa-solid fa-sun"></i>
+                        }
+                        <p>{description}</p>
+                    </div>
+                    <div>
+                        <i className="fa-solid fa-wind"></i>
+                        <p>{wind}</p>
+                    </div>
+                </div>
+                <div className={'sunrise__wrapper'}>
+                    <div>
+                        <i className="fa-solid fa-sun i-sunrise"></i>
+                        <p>{sunrise}</p>
+                    </div>
+                    <div>
+                        <i className="fa-solid fa-moon i-sunset"></i>
+                        <p>{sunset}</p>
+                    </div>
+                </div>
             </div>
             <button onClick={togglePin} className={'city__pin'}>
                 <i className="fa-solid fa-thumbtack"
