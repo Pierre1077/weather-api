@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'axios'
 import axios from "axios";
+import Card from "../../components/Card/Card";
 
 const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState([]);
@@ -134,24 +135,29 @@ const WeatherApp = () => {
 
 
     }, []);
-    function sunriseTimestamp() {
-        const sunriseTimestamp = 1684210094;
+    function sunriseTimestamp(sunriseTimestamp) {
         const sunriseDate = new Date(sunriseTimestamp * 1000);
-        const sunriseHours = sunriseDate.getHours();
-        const sunriseMinutes = sunriseDate.getMinutes();
 
-        return `${sunriseHours}:${sunriseMinutes}`;
+        const sunriseHours = sunriseDate.getHours();
+        const fixeHours = ("0" + sunriseHours).slice(-2);
+
+        const sunriseMinutes = sunriseDate.getMinutes();
+        const fixeMinutes = ("0" + sunriseMinutes).slice(-2);
+
+        return `${fixeHours}:${fixeMinutes}`;
     }
 
-    function sunsetTimestamp() {
-        const sunsetTimestamp = 1684265153; // Exemple de timestamp pour le coucher du soleil
+    function sunsetTimestamp(sunsetTimestamp) {
 
         const sunsetDate = new Date(sunsetTimestamp * 1000);
 
         const sunsetHours = sunsetDate.getHours();
-        const sunsetMinutes = sunsetDate.getMinutes();
+        const fixeHours = ("0" + sunsetHours).slice(-2);
 
-        return `${sunsetHours}:${sunsetMinutes}`;
+        const sunsetMinutes = sunsetDate.getMinutes();
+        const fixeMinutes = ("0" + sunsetMinutes).slice(-2);
+
+        return `${fixeHours}:${fixeMinutes}`;
     }
 
 
@@ -189,12 +195,12 @@ const WeatherApp = () => {
                 return (
                     <div key={index}>
                         <h2>{pinned.name}</h2>
-                        <p>Temperature: {(pinned.main.temp) -  273.15}</p>
-                        <p>Cloudy: {pinned.clouds.all}</p>
-                        <p>description: {pinned.weather[0].main} {pinned.weather[0].description}</p>
-                        <p>wind.speed: {(pinned.wind.speed) * 3.6}</p>
-                        <p>sys.sunrise: {sunriseTimestamp()}</p>
-                        <p>sys.sunset: { sunsetTimestamp()}</p>
+                        <p>Temperature: {((pinned.main.temp) -  273.15).toFixed(0) + ' C°'}</p>
+                        <p>Cloudy: {pinned.clouds.all + '%'}</p>
+                        <p>description: {pinned.weather[0].main} </p>
+                        <p>wind.speed: {((pinned.wind.speed) * 3.6).toFixed(0) + ' km/h'}</p>
+                        <p>sys.sunrise: {sunriseTimestamp(pinned.sys.sunrise)}</p>
+                        <p>sys.sunset: { sunsetTimestamp(pinned.sys.sunset)}</p>
                         <button onClick={() => togglePin(pinned)}>
                             Unpin
                         </button>
@@ -204,18 +210,20 @@ const WeatherApp = () => {
             <h2>Cities</h2>
             {weatherData.length > 0 ? (
                 weatherData.map((data, index) => (
-                    <div key={index}>
-                        <h2>{data.name}</h2>
-                        <p>Temperature: {(data.main.temp) -  273.15}</p>
-                        <p>Cloudy: {data.clouds.all}</p>
-                        <p>description: {data.weather[0].main} {data.weather[0].description}</p>
-                        <p>wind.speed: {(data.wind.speed) * 3.6}</p>
-                        <p>sys.sunrise: {sunriseTimestamp()}</p>
-                        <p>sys.sunset: { sunsetTimestamp()}</p>
-                        <button onClick={() => togglePin(data)}>
-                            {isPinned.find((i) => i.id === data.id) ? 'unpin' : '   pin'}
-                        </button>
-                    </div>
+
+                        <Card
+                            key={index}
+                            name={data.name}
+                            temperature={((data.main.temp) -  273.15).toFixed(0) + ' °C'}
+                            clouds={data.clouds.all}
+                            description={data.weather[0].main}
+                            wind={((data.wind.speed) * 3.6).toFixed(0) + ' km/h'}
+                            sunrise={sunriseTimestamp(data.sys.sunrise)}
+                            sunset={sunsetTimestamp(data.sys.sunset)}
+                            togglePin={() => togglePin(data)}
+                            pin={isPinned.find((i) => i.id === data.id) ? 'red' : 'black'}
+                        />
+
                 ))
             ) : (
                 <p>Loading weather data...</p>

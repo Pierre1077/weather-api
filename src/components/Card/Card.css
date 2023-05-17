@@ -1,0 +1,19 @@
+.city__card {
+  background: red;
+}
+.city__card .city__name {
+  font-size: 22px;
+}
+.city__card .city__temperature {
+  font-size: 40px;
+}
+.city__card .city__pin {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.city__card .city__pin i {
+  font-size: 30px;
+}
+
+/*# sourceMappingURL=Card.css.map */

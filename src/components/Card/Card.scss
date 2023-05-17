@@ -1,0 +1,22 @@
+.city__card {
+  background: red;
+
+  .city__name {
+    font-size: 22px;
+  }
+
+  .city__temperature {
+    font-size: 40px;
+  }
+
+  .city__pin {
+      cursor: pointer;
+      background: none;
+    border: none;
+
+    i {
+      font-size: 30px;
+    }
+  }
+
+}
